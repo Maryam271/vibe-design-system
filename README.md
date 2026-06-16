@@ -1,3 +1,6 @@
+<img width="1681" height="651" alt="Screenshot 2026-06-16 at 08 56 41" src="https://github.com/user-attachments/assets/a8896497-e5bb-40d9-9eec-711a759c7aac" />
+
+
 # Summer Vibes: Create Your Design System Using Cursor
 
 Foundation repo for the **Summer Vibes** live coding session at [DataCamp](https://www.datacamp.com/).
