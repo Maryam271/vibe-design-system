@@ -19,6 +19,8 @@ import { join } from "node:path";
 const ROOT = process.cwd();
 const PUBLIC = join(ROOT, "public");
 const NAME = "Vibe Coding Design System";
+const SITE_URL = (process.env.SITE_URL || process.env.CF_PAGES_URL || "https://vibe-design-system.lucas-silva-cea.workers.dev").replace(/\/$/, "");
+const VERSION = "v1";
 
 /** Parse the @theme block of global.css into grouped tokens. */
 function readTokens() {
@@ -120,10 +122,26 @@ function llmsTxt() {
 		"- [Tokens](/tokens.json): exact color, type, spacing, radius, and motion values",
 		"- [Tokens CSS](/tokens.css): drop-in :root custom properties for any web project",
 		"",
+		"## Versioned URLs",
+		"",
+		`- [System spec](${SITE_URL}/${VERSION}/system.md)`,
+		`- [Tokens](${SITE_URL}/${VERSION}/tokens.json)`,
+		`- [Tokens CSS](${SITE_URL}/${VERSION}/tokens.css)`,
+		"",
 		"## Apply",
 		"",
 		"Read /system.md and /tokens.json, then refactor or build a page to match —",
 		"replacing ad-hoc styles with the system's tokens and following its rules.",
+		"",
+		"## Install the skill",
+		"",
+		`Download \`${SITE_URL}/${VERSION}/skills/apply-system.md\` and save it to your`,
+		"agent's skills directory:",
+		"",
+		"- Claude Code: `.claude/skills/apply-system/SKILL.md`",
+		"- Cursor: `.cursor/skills/apply-system/SKILL.md`",
+		"",
+		"Then invoke it by asking your agent to apply the design system.",
 		"",
 	].join("\n");
 }
@@ -133,13 +151,39 @@ function main() {
 	const tokens = readTokens();
 
 	const json = { name: NAME, ...Object.fromEntries(tokens.order.map((g) => [g, tokens.groups[g]])) };
-	writeFileSync(join(PUBLIC, "tokens.json"), JSON.stringify(json, null, 2) + "\n");
-	writeFileSync(join(PUBLIC, "tokens.css"), tokensCss(tokens));
-	writeFileSync(join(PUBLIC, "system.md"), systemMd(tokens));
-	writeFileSync(join(PUBLIC, "llms.txt"), llmsTxt());
+	const jsonStr = JSON.stringify(json, null, 2) + "\n";
+	const cssStr = tokensCss(tokens);
+	const systemStr = systemMd(tokens);
+	const llmsStr = llmsTxt();
+
+	// Root files
+	writeFileSync(join(PUBLIC, "tokens.json"), jsonStr);
+	writeFileSync(join(PUBLIC, "tokens.css"), cssStr);
+	writeFileSync(join(PUBLIC, "system.md"), systemStr);
+	writeFileSync(join(PUBLIC, "llms.txt"), llmsStr);
+
+	// Versioned copies: public/v1/
+	const V1 = join(PUBLIC, VERSION);
+	mkdirSync(V1, { recursive: true });
+	writeFileSync(join(V1, "tokens.json"), jsonStr);
+	writeFileSync(join(V1, "tokens.css"), cssStr);
+	writeFileSync(join(V1, "system.md"), systemStr);
+
+	// Installable hosted skill: public/v1/skills/apply-system.md
+	const skillsSrc = join(ROOT, ".claude/skills/apply-system/SKILL.md");
+	const skillsDir = join(V1, "skills");
+	mkdirSync(skillsDir, { recursive: true });
+	const localSkill = readFileSync(skillsSrc, "utf8");
+	const hostedSkill =
+		"<!-- Installable build of apply-system. Reads this design system from its hosted URL. Save to your agent's skills dir and invoke. -->\n" +
+		localSkill
+			.replace(/public\/tokens\.json/g, `${SITE_URL}/${VERSION}/tokens.json`)
+			.replace(/public\/system\.md/g, `${SITE_URL}/${VERSION}/system.md`);
+	writeFileSync(join(skillsDir, "apply-system.md"), hostedSkill);
 
 	const count = tokens.order.reduce((n, g) => n + Object.keys(tokens.groups[g]).length, 0);
 	console.log(`publish-system: wrote tokens.json, tokens.css, system.md, llms.txt (${count} tokens, groups: ${tokens.order.join(", ")})`);
+	console.log(`publish-system: version=${VERSION} site=${SITE_URL} — wrote public/${VERSION}/ (tokens.json, tokens.css, system.md, skills/apply-system.md)`);
 }
 
 main();

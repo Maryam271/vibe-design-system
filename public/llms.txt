@@ -7,7 +7,23 @@
 - [Tokens](/tokens.json): exact color, type, spacing, radius, and motion values
 - [Tokens CSS](/tokens.css): drop-in :root custom properties for any web project
 
+## Versioned URLs
+
+- [System spec](https://vibe-design-system.lucas-silva-cea.workers.dev/v1/system.md)
+- [Tokens](https://vibe-design-system.lucas-silva-cea.workers.dev/v1/tokens.json)
+- [Tokens CSS](https://vibe-design-system.lucas-silva-cea.workers.dev/v1/tokens.css)
+
 ## Apply
 
 Read /system.md and /tokens.json, then refactor or build a page to match —
 replacing ad-hoc styles with the system's tokens and following its rules.
+
+## Install the skill
+
+Download `https://vibe-design-system.lucas-silva-cea.workers.dev/v1/skills/apply-system.md` and save it to your
+agent's skills directory:
+
+- Claude Code: `.claude/skills/apply-system/SKILL.md`
+- Cursor: `.cursor/skills/apply-system/SKILL.md`
+
+Then invoke it by asking your agent to apply the design system.

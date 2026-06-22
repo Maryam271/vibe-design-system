@@ -26,10 +26,20 @@ pnpm-debug.log*
 
 # impeccable harness installs (local per machine)
 .agents/
-.claude/
-.cursor/
 .gemini/
 .opencode/
+
+# Harness dirs ignored, EXCEPT our two shipped skills (must be present on clone).
+.claude/*
+!.claude/skills/
+.claude/skills/*
+!.claude/skills/apply-system/
+!.claude/skills/publish-system/
+.cursor/*
+!.cursor/skills/
+.cursor/skills/*
+!.cursor/skills/apply-system/
+!.cursor/skills/publish-system/
 
 # personal design context (created during the session, one per attendee)
 PRODUCT.md
