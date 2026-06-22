@@ -40,7 +40,7 @@ npm install
 npm run dev
 ```
 
-Open [http://localhost:4321](http://localhost:4321). You should see a plain `hello world` page. That is expected. We have not styled anything yet.
+Open [http://localhost:4321](http://localhost:4321). You'll see the **design-system showcase** — palette, type, and components, all in deliberately plain grayscale defaults. That's the point: as you define your tokens during the session, this page reskins live.
 
 ### If Cursor asks what to do
 
@@ -104,9 +104,17 @@ Pre-configured scaffold for the session:
 | [Tailwind CSS](https://tailwindcss.com/) | 4.x |
 | [daisyUI](https://daisyui.com/) | 5.x |
 
-Tailwind is wired through the Vite plugin. daisyUI is registered in `src/styles/global.css` but not applied to pages until that stylesheet is imported from a layout.
+Tailwind is wired through the Vite plugin, and the design tokens live in `src/styles/global.css` (`@theme` + `:root`). daisyUI is registered there but left inert (`themes: false`) — the system is built on custom tokens, not daisyUI components.
 
 Dev toolbar is disabled in `astro.config.mjs` so the live demo stays clean.
+
+### The rails (pre-built so the session is about taste, not boilerplate)
+
+- **Neutral token foundation** — `src/styles/global.css` (`@theme`): the live-edit surface that drives everything.
+- **Token-driven showcase** — `src/pages/index.astro` + `src/components/ds/*`: palette, type, and component galleries that reskin from the tokens.
+- **`publish-system`** — `scripts/publish-system.mjs`, run automatically on every dev/build via an Astro integration. Generates the **agent layer**: `/tokens.json`, `/system.md`, `/tokens.css`, `/llms.txt`, and versioned `/v1/…` (including an installable hosted skill). These are generated, not committed.
+- **Skills** — `apply-system` (apply the system to any product) and `publish-system`, shipped in `.claude/skills` + `.cursor/skills` so they're present on clone.
+- **Static deploy** — `wrangler.jsonc` configures a static Cloudflare deploy of `./dist`, no SSR adapter needed.
 
 ## Closing thought
 
