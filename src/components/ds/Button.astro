@@ -1,0 +1,118 @@
+---
+interface Props {
+  variant?: "primary" | "secondary" | "ghost";
+  size?: "sm" | "md" | "lg";
+  href?: string;
+  disabled?: boolean;
+  class?: string;
+  [key: string]: unknown;
+}
+
+const {
+  variant = "primary",
+  size = "md",
+  href,
+  disabled = false,
+  class: className = "",
+  ...rest
+} = Astro.props;
+
+const classes = [
+  "ds-btn",
+  `ds-btn--${variant}`,
+  `ds-btn--${size}`,
+  className,
+]
+  .filter(Boolean)
+  .join(" ");
+
+const Tag = href ? "a" : "button";
+---
+
+{
+  Tag === "a" ? (
+    <a href={href} class={classes} {...rest}>
+      <slot />
+    </a>
+  ) : (
+    <button class={classes} disabled={disabled} {...rest}>
+      <slot />
+    </button>
+  )
+}
+
+<style>
+  .ds-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-xs);
+    font-family: var(--font-body);
+    font-weight: 500;
+    line-height: 1;
+    text-decoration: none;
+    border: 1px solid transparent;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition:
+      background-color var(--duration-fast) var(--ease-out-quart),
+      border-color var(--duration-fast) var(--ease-out-quart),
+      color var(--duration-fast) var(--ease-out-quart);
+    white-space: nowrap;
+  }
+
+  .ds-btn:disabled,
+  .ds-btn[aria-disabled="true"] {
+    opacity: 0.45;
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+
+  /* Sizes */
+  .ds-btn--sm {
+    font-size: var(--text-caption);
+    padding: var(--space-xs) var(--space-sm);
+  }
+
+  .ds-btn--md {
+    font-size: var(--text-secondary);
+    padding: var(--space-sm) var(--space-md);
+  }
+
+  .ds-btn--lg {
+    font-size: var(--text-body);
+    padding: var(--space-md) var(--space-lg);
+  }
+
+  /* Variants */
+  .ds-btn--primary {
+    background-color: var(--color-primary);
+    border-color: var(--color-primary);
+    color: var(--color-bg);
+  }
+
+  .ds-btn--primary:hover:not(:disabled) {
+    background-color: var(--color-primary-hover);
+    border-color: var(--color-primary-hover);
+  }
+
+  .ds-btn--secondary {
+    background-color: var(--color-surface);
+    border-color: var(--color-line);
+    color: var(--color-ink);
+  }
+
+  .ds-btn--secondary:hover:not(:disabled) {
+    background-color: var(--color-line);
+  }
+
+  .ds-btn--ghost {
+    background-color: transparent;
+    border-color: transparent;
+    color: var(--color-primary);
+  }
+
+  .ds-btn--ghost:hover:not(:disabled) {
+    background-color: var(--color-surface);
+  }
+</style>

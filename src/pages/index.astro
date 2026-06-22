@@ -1,3 +1,394 @@
-<html>
-	<body>hello world</body>
-</html>
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Button from "../components/ds/Button.astro";
+import Card from "../components/ds/Card.astro";
+import Badge from "../components/ds/Badge.astro";
+import Input from "../components/ds/Input.astro";
+import ColorSwatch from "../components/ds/ColorSwatch.astro";
+import Section from "../components/ds/Section.astro";
+
+const swatches = [
+  { name: "Background",     token: "--color-bg" },
+  { name: "Surface",        token: "--color-surface" },
+  { name: "Ink",            token: "--color-ink" },
+  { name: "Muted",          token: "--color-muted" },
+  { name: "Line",           token: "--color-line" },
+  { name: "Primary",        token: "--color-primary" },
+  { name: "Accent",         token: "--color-accent" },
+  { name: "Coral",          token: "--color-coral" },
+  { name: "Green",          token: "--color-green" },
+];
+
+const typeRows = [
+  { label: "Display",    cls: "text-display",    tag: "span", sample: "The quick brown fox" },
+  { label: "Heading",    cls: "text-heading",    tag: "span", sample: "The quick brown fox jumps" },
+  { label: "Subheading", cls: "text-subheading", tag: "span", sample: "The quick brown fox jumps over the lazy dog" },
+  { label: "Body",       cls: "text-body",       tag: "span", sample: "The quick brown fox jumps over the lazy dog. Sphinx of black quartz, judge my vow." },
+  { label: "Secondary",  cls: "text-secondary",  tag: "span", sample: "The quick brown fox jumps over the lazy dog. Sphinx of black quartz, judge my vow." },
+  { label: "Caption",    cls: "text-caption",    tag: "span", sample: "The quick brown fox jumps over the lazy dog. Sphinx of black quartz, judge my vow." },
+];
+---
+
+<BaseLayout title="Design System" description="A neutral, token-driven design system showcase.">
+
+  <!-- Sticky header -->
+  <header class="site-header">
+    <div class="site-header__inner">
+      <span class="site-header__wordmark">Design System</span>
+      <nav class="site-header__nav" aria-label="Page sections">
+        <a href="#colors">Colors</a>
+        <a href="#type">Type</a>
+        <a href="#components">Components</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="page-main">
+
+    <!-- Hero -->
+    <div class="hero">
+      <div class="hero__inner">
+        <p class="hero__caption text-caption text-muted">Neutral Canvas</p>
+        <h1 class="text-display hero__headline">
+          Tokens first.<br />Reskin everything.
+        </h1>
+        <p class="hero__lede text-secondary text-muted">
+          A blank-slate design system. Change the tokens in <code>global.css</code>
+          and every component reskins instantly — no component code touched.
+        </p>
+        <div class="hero__actions">
+          <Button variant="primary" size="lg" href="#components">Browse components</Button>
+          <Button variant="ghost" size="lg" href="#colors">See tokens</Button>
+        </div>
+      </div>
+    </div>
+
+    <div class="content-wrap">
+
+      <!-- Colors -->
+      <Section id="colors" heading="Color tokens" lede="Nine semantic color tokens cover every UI surface. Swap them and the entire system follows.">
+        <div class="swatch-grid">
+          {swatches.map((s) => (
+            <ColorSwatch name={s.name} token={s.token} />
+          ))}
+        </div>
+      </Section>
+
+      <!-- Type -->
+      <Section id="type" heading="Type scale" lede="Six steps built on clamp() and rem. Display through Caption, all token-driven.">
+        <div class="type-panel">
+          {typeRows.map((row) => (
+            <div class="type-row">
+              <span class="type-row__label text-caption text-muted">{row.label}</span>
+              <span class={`type-row__sample font-display ${row.cls}`}>{row.sample}</span>
+            </div>
+          ))}
+        </div>
+      </Section>
+
+      <!-- Components -->
+      <Section id="components" heading="Components" lede="Four lanes: actions, status badges, form inputs, and content surfaces.">
+        <div class="component-lanes">
+
+          <!-- Actions -->
+          <div class="lane">
+            <p class="lane__heading">Actions</p>
+            <div class="lane__items">
+              <Button variant="primary">Primary</Button>
+              <Button variant="secondary">Secondary</Button>
+              <Button variant="ghost">Ghost</Button>
+              <Button variant="primary" disabled>Disabled</Button>
+            </div>
+          </div>
+
+          <!-- Status -->
+          <div class="lane">
+            <p class="lane__heading">Status</p>
+            <div class="lane__items lane__items--wrap">
+              <Badge tone="neutral">Neutral</Badge>
+              <Badge tone="ocean">Ocean</Badge>
+              <Badge tone="gold">Gold</Badge>
+              <Badge tone="green">Green</Badge>
+              <Badge tone="coral">Coral</Badge>
+            </div>
+          </div>
+
+          <!-- Forms -->
+          <div class="lane">
+            <p class="lane__heading">Forms</p>
+            <div class="lane__items lane__items--col">
+              <Input
+                id="demo-name"
+                label="Full name"
+                type="text"
+                placeholder="Jane Smith"
+                helper="Used on your public profile."
+              />
+              <Input
+                id="demo-email"
+                label="Email address"
+                type="email"
+                placeholder="jane@example.com"
+                error="That email address is already taken."
+              />
+            </div>
+          </div>
+
+          <!-- Surfaces -->
+          <div class="lane">
+            <p class="lane__heading">Surfaces</p>
+            <div class="lane__items lane__items--col">
+              <Card title="Default card">
+                This is the default card. It uses <code>--radius-lg</code> and
+                <code>--color-line</code> for its border.
+              </Card>
+              <Card title="Compact card" compact>
+                Same component, <code>compact</code> prop reduces padding.
+              </Card>
+            </div>
+          </div>
+
+        </div>
+      </Section>
+
+      <!-- For agents -->
+      <Section heading="For agents" lede="AI tools and automated agents can consume this design system via structured endpoints.">
+        <p class="agent-intro text-secondary">
+          The following machine-readable files describe the complete token set, component API,
+          and usage conventions. Point your agent at these before generating UI.
+        </p>
+        <ul class="agent-links">
+          <li>
+            <a href="/tokens.json"><code>/tokens.json</code></a>
+            — All design tokens as a flat JSON object, keyed by CSS variable name.
+          </li>
+          <li>
+            <a href="/system.md"><code>/system.md</code></a>
+            — Markdown reference: token table, component props, usage rules.
+          </li>
+          <li>
+            <a href="/llms.txt"><code>/llms.txt</code></a>
+            — Plain-text summary in the <a href="https://llmstxt.org">llms.txt</a> convention
+            for LLM context windows.
+          </li>
+        </ul>
+      </Section>
+
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <p class="text-caption text-muted">Design System — neutral canvas, token-driven. Change tokens, reskin everything.</p>
+  </footer>
+
+</BaseLayout>
+
+<style>
+  /* ── Header ── */
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: var(--z-sticky);
+    background-color: var(--color-bg);
+    border-bottom: 1px solid var(--color-line);
+  }
+
+  .site-header__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 72rem;
+    margin: 0 auto;
+    padding: var(--space-md) var(--space-lg);
+  }
+
+  .site-header__wordmark {
+    font-family: var(--font-display);
+    font-size: var(--text-subheading);
+    font-weight: 500;
+    color: var(--color-ink);
+    letter-spacing: -0.01em;
+  }
+
+  .site-header__nav {
+    display: flex;
+    gap: var(--space-lg);
+  }
+
+  .site-header__nav a {
+    font-size: var(--text-secondary);
+    color: var(--color-muted);
+    text-decoration: none;
+    transition: color var(--duration-fast) var(--ease-out-quart);
+  }
+
+  .site-header__nav a:hover {
+    color: var(--color-ink);
+  }
+
+  /* ── Layout shells ── */
+  .page-main {
+    min-height: calc(100dvh - 4rem);
+  }
+
+  .hero {
+    border-bottom: 1px solid var(--color-line);
+    padding: var(--space-3xl) var(--space-lg);
+  }
+
+  .hero__inner {
+    max-width: 72rem;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-lg);
+  }
+
+  .hero__caption {
+    margin: 0;
+    max-width: none;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .hero__headline {
+    max-width: 18ch;
+  }
+
+  .hero__lede {
+    max-width: 52ch;
+  }
+
+  .hero__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-sm);
+    align-items: center;
+  }
+
+  .content-wrap {
+    max-width: 72rem;
+    margin: 0 auto;
+    padding: 0 var(--space-lg);
+  }
+
+  /* ── Color swatches ── */
+  .swatch-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(9.5rem, 1fr));
+    gap: var(--space-md);
+  }
+
+  /* ── Type specimen ── */
+  .type-panel {
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-lg);
+    padding: var(--space-lg);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-lg);
+  }
+
+  .type-row {
+    display: grid;
+    grid-template-columns: 7rem 1fr;
+    align-items: baseline;
+    gap: var(--space-md);
+  }
+
+  .type-row__label {
+    font-weight: 600;
+    letter-spacing: 0.04em;
+  }
+
+  .type-row__sample {
+    color: var(--color-ink);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  /* ── Component lanes ── */
+  .component-lanes {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+    gap: var(--space-xl);
+    align-items: start;
+  }
+
+  .lane__heading {
+    font-family: var(--font-body);
+    font-size: var(--text-caption);
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--color-muted);
+    margin: 0 0 var(--space-md) 0;
+    max-width: none;
+  }
+
+  .lane__items {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-sm);
+    align-items: flex-start;
+  }
+
+  .lane__items--col {
+    flex-direction: column;
+  }
+
+  .lane__items--wrap {
+    flex-wrap: wrap;
+  }
+
+  /* ── Agent section ── */
+  .agent-intro {
+    margin-bottom: var(--space-md);
+    max-width: 60ch;
+  }
+
+  .agent-links {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+    padding-left: var(--space-lg);
+    margin: 0;
+  }
+
+  .agent-links li {
+    font-size: var(--text-secondary);
+    color: var(--color-muted);
+  }
+
+  .agent-links code {
+    font-family: ui-monospace, "Cascadia Code", "Source Code Pro", monospace;
+    font-size: var(--text-caption);
+    color: var(--color-ink);
+  }
+
+  /* ── Footer ── */
+  .site-footer {
+    border-top: 1px solid var(--color-line);
+    padding: var(--space-lg);
+    text-align: center;
+  }
+
+  .site-footer p {
+    margin: 0 auto;
+    max-width: none;
+  }
+
+  /* ── code inline ── */
+  code {
+    font-family: ui-monospace, "Cascadia Code", "Source Code Pro", monospace;
+    font-size: 0.875em;
+    color: var(--color-ink);
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-sm);
+    padding: 0.1em 0.35em;
+  }
+</style>

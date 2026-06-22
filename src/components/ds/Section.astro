@@ -1,0 +1,65 @@
+---
+interface Props {
+  heading: string;
+  lede?: string;
+  id?: string;
+  tight?: boolean;
+  class?: string;
+}
+
+const { heading, lede, id, tight = false, class: className = "" } = Astro.props;
+
+const classes = ["ds-section", tight ? "ds-section--tight" : "", className]
+  .filter(Boolean)
+  .join(" ");
+---
+
+<section class={classes} id={id}>
+  <div class="ds-section__header">
+    <h2 class="ds-section__heading">{heading}</h2>
+    {lede && <p class="ds-section__lede">{lede}</p>}
+  </div>
+  <div class="ds-section__content">
+    <slot />
+  </div>
+</section>
+
+<style>
+  .ds-section {
+    padding-top: var(--space-2xl);
+    padding-bottom: var(--space-2xl);
+  }
+
+  .ds-section--tight {
+    padding-top: var(--space-xl);
+    padding-bottom: var(--space-xl);
+  }
+
+  .ds-section__header {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+    margin-bottom: var(--space-xl);
+  }
+
+  .ds-section__heading {
+    font-size: var(--text-subheading);
+    font-family: var(--font-body);
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--color-muted);
+    margin: 0;
+  }
+
+  .ds-section__lede {
+    font-size: var(--text-secondary);
+    color: var(--color-muted);
+    max-width: 55ch;
+    margin: 0;
+  }
+
+  .ds-section__content {
+    /* content fills its natural width */
+  }
+</style>

@@ -1,0 +1,50 @@
+---
+interface Props {
+  title?: string;
+  compact?: boolean;
+  class?: string;
+}
+
+const { title, compact = false, class: className = "" } = Astro.props;
+
+const classes = [
+  "ds-card",
+  compact ? "ds-card--compact" : "",
+  className,
+]
+  .filter(Boolean)
+  .join(" ");
+---
+
+<div class={classes}>
+  {title && <p class="ds-card__title">{title}</p>}
+  <div class="ds-card__body">
+    <slot />
+  </div>
+</div>
+
+<style>
+  .ds-card {
+    background-color: var(--color-bg);
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-lg);
+    padding: var(--space-lg);
+  }
+
+  .ds-card--compact {
+    padding: var(--space-md);
+  }
+
+  .ds-card__title {
+    font-family: var(--font-display);
+    font-size: var(--text-heading);
+    color: var(--color-ink);
+    margin: 0 0 var(--space-sm) 0;
+    max-width: none;
+  }
+
+  .ds-card__body {
+    color: var(--color-muted);
+    font-size: var(--text-secondary);
+  }
+</style>

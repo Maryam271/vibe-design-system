@@ -1,0 +1,106 @@
+---
+interface Props {
+  id: string;
+  label: string;
+  type?: string;
+  placeholder?: string;
+  helper?: string;
+  error?: string;
+  class?: string;
+}
+
+const {
+  id,
+  label,
+  type = "text",
+  placeholder,
+  helper,
+  error,
+  class: className = "",
+} = Astro.props;
+
+const helperId = helper ? `${id}-helper` : undefined;
+const errorId = error ? `${id}-error` : undefined;
+const describedBy = [helperId, errorId].filter(Boolean).join(" ") || undefined;
+
+const wrapperClasses = ["ds-input-wrap", className].filter(Boolean).join(" ");
+---
+
+<div class={wrapperClasses}>
+  <label class="ds-input__label" for={id}>{label}</label>
+  <input
+    class="ds-input__field"
+    id={id}
+    type={type}
+    placeholder={placeholder}
+    aria-invalid={error ? "true" : undefined}
+    aria-describedby={describedBy}
+  />
+  {helper && !error && (
+    <span id={helperId} class="ds-input__helper">{helper}</span>
+  )}
+  {error && (
+    <span id={errorId} class="ds-input__error" role="alert">{error}</span>
+  )}
+</div>
+
+<style>
+  .ds-input-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+    font-family: var(--font-body);
+  }
+
+  .ds-input__label {
+    font-size: var(--text-secondary);
+    color: var(--color-ink);
+    font-weight: 500;
+  }
+
+  .ds-input__field {
+    font-family: var(--font-body);
+    font-size: var(--text-body);
+    color: var(--color-ink);
+    background-color: var(--color-bg);
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-md);
+    padding: var(--space-sm) var(--space-md);
+    width: 100%;
+    transition:
+      border-color var(--duration-fast) var(--ease-out-quart),
+      box-shadow var(--duration-fast) var(--ease-out-quart);
+  }
+
+  .ds-input__field::placeholder {
+    color: var(--color-muted);
+  }
+
+  .ds-input__field:hover {
+    border-color: var(--color-muted);
+  }
+
+  .ds-input__field:focus {
+    outline: none;
+    border-color: var(--color-focus);
+    box-shadow: 0 0 0 2px color-mix(in oklch, var(--color-focus) 25%, transparent);
+  }
+
+  .ds-input__field[aria-invalid="true"] {
+    border-color: var(--color-error);
+  }
+
+  .ds-input__field[aria-invalid="true"]:focus {
+    box-shadow: 0 0 0 2px color-mix(in oklch, var(--color-error) 20%, transparent);
+  }
+
+  .ds-input__helper {
+    font-size: var(--text-caption);
+    color: var(--color-muted);
+  }
+
+  .ds-input__error {
+    font-size: var(--text-caption);
+    color: var(--color-error);
+  }
+</style>

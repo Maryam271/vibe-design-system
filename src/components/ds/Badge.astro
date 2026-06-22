@@ -1,0 +1,68 @@
+---
+interface Props {
+  tone?: "neutral" | "ocean" | "gold" | "green" | "coral";
+  class?: string;
+}
+
+const { tone = "neutral", class: className = "" } = Astro.props;
+
+const classes = [
+  "ds-badge",
+  `ds-badge--${tone}`,
+  className,
+]
+  .filter(Boolean)
+  .join(" ");
+---
+
+<span class={classes}><slot /></span>
+
+<style>
+  .ds-badge {
+    display: inline-flex;
+    align-items: center;
+    font-family: var(--font-body);
+    font-size: var(--text-caption);
+    font-weight: 500;
+    line-height: 1;
+    padding: 0.2em 0.6em;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--color-line);
+    white-space: nowrap;
+  }
+
+  /* neutral — surface + ink */
+  .ds-badge--neutral {
+    background-color: var(--color-surface);
+    color: var(--color-ink);
+    border-color: var(--color-line);
+  }
+
+  /* ocean — primary + bg */
+  .ds-badge--ocean {
+    background-color: var(--color-primary);
+    color: var(--color-bg);
+    border-color: var(--color-primary);
+  }
+
+  /* gold — accent bg + accent-ink text */
+  .ds-badge--gold {
+    background-color: var(--color-accent);
+    color: var(--color-accent-ink);
+    border-color: var(--color-accent);
+  }
+
+  /* green */
+  .ds-badge--green {
+    background-color: var(--color-green);
+    color: var(--color-bg);
+    border-color: var(--color-green);
+  }
+
+  /* coral */
+  .ds-badge--coral {
+    background-color: var(--color-coral);
+    color: var(--color-bg);
+    border-color: var(--color-coral);
+  }
+</style>

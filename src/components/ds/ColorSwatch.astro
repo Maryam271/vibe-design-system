@@ -1,0 +1,60 @@
+---
+interface Props {
+  name: string;
+  token: string;
+  light?: boolean;
+  class?: string;
+}
+
+const { name, token, light = false, class: className = "" } = Astro.props;
+
+const classes = ["ds-swatch", light ? "ds-swatch--light" : "", className]
+  .filter(Boolean)
+  .join(" ");
+---
+
+<div class={classes}>
+  <div class="ds-swatch__chip" style={`background: var(${token})`}></div>
+  <div class="ds-swatch__meta">
+    <span class="ds-swatch__name">{name}</span>
+    <span class="ds-swatch__token">{token}</span>
+  </div>
+</div>
+
+<style>
+  .ds-swatch {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    background-color: var(--color-bg);
+  }
+
+  .ds-swatch__chip {
+    height: 4rem;
+    width: 100%;
+  }
+
+  .ds-swatch__meta {
+    display: flex;
+    flex-direction: column;
+    gap: 0.125rem;
+    padding: var(--space-xs) var(--space-sm) var(--space-sm);
+  }
+
+  .ds-swatch__name {
+    font-family: var(--font-body);
+    font-size: var(--text-caption);
+    font-weight: 600;
+    color: var(--color-ink);
+  }
+
+  .ds-swatch__token {
+    font-family: ui-monospace, "Cascadia Code", "Source Code Pro", monospace;
+    font-size: 0.75rem;
+    color: var(--color-muted);
+    word-break: break-all;
+  }
+</style>
