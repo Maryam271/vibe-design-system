@@ -35,5 +35,8 @@ pnpm-debug.log*
 PRODUCT.md
 DESIGN.md
 
+# session planning / decisions (local, not shipped to attendees)
+SESSION-PLAN.md
+
 # jetbrains setting folder
 .idea/
