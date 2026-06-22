@@ -76,12 +76,14 @@ That creates your personal `PRODUCT.md`. Later, `/impeccable document` creates y
 ### What we cover
 
 1. **What is vibe coding?** The idea (popularized by Andrej Karpathy), and the toolbox: Cursor, v0, Lovable, Claude / Claude Code.
-2. **Meet the slop.** A deliberately low-effort prompt to show that generic AI output is real. We look at why so much of the web is starting to look the same now that code is cheap.
-3. **Code got cheap. Taste didn't.** How to make an app feel intentional, not like a high school project pasted out of ChatGPT. The session deck itself is an example of AI output elevated by a real design system.
-4. **Design System ≠ System Design.** Easy to mix up because the words overlap. A **design system** is about design: visual language, components, tokens, consistency. **System design** is about engineering: architecture, data flow, reliability. The order of the words changes everything.
+2. **Meet the slop.** A deliberately low-effort prompt to show that generic AI output is real — and why so much of the web looks the same now that code is cheap.
+3. **Code got cheap. Taste didn't.** How to make an app feel intentional, not like a high school project pasted out of ChatGPT.
+4. **What *is* a design system?** The brands you recognize in one second — Apple, Spotify, Lego, Polestar — and the recipe behind them: tokens, components, and rules. The twist for us: a **vibe coding design system** is built for humans *and* agents. (And no, it's not **System Design** — same words, opposite jobs: visual language vs. engineering architecture.)
 5. **Find your taste.** Build a mood board of references you actually like.
-6. **AI-assisted interview.** Use an agent to pull out the intricate details of *your* system: palette, type, density, voice, anti-patterns.
-7. **Build it with Cursor + [Impeccable](https://impeccable.style/).** Wire up the stack, iterate in the browser, and un-slopify as you go.
+6. **AI-assisted interview.** Use an agent to pull out the details of *your* system: palette, type, density, voice, anti-patterns.
+7. **Define it live.** Set your tokens with Cursor + [Impeccable](https://impeccable.style/) and watch the showcase reskin in front of you.
+8. **Publish it to the open web.** Deploy to Cloudflare Pages so the URL becomes an *agent-readable* design system — tokens, rules, and an installable skill. The URL is the product.
+9. **Consume it anywhere.** Point an AI agent at your system and watch it build or refactor a product on-brand — in any stack. That's the whole point.
 
 ### Related decks
 
