@@ -1,119 +1,48 @@
-<img width="1681" height="651" alt="Screenshot 2026-06-16 at 08 56 41" src="https://github.com/user-attachments/assets/a8896497-e5bb-40d9-9eec-711a759c7aac" />
+# Vibe Design System
 
+A modern, token-driven design system framework and live showcase built for AI-assisted workflows. This repository provides a seamless foundation to construct, document, and deploy your own visual identity, integrating directly with AI agents to automate the UI workflow.
 
-# Summer Vibes: Create Your Design System Using Cursor
+## 🚀 Tech Stack & Tools Used
 
-Foundation repo for the **Summer Vibes** live coding session at [DataCamp](https://www.datacamp.com/).
+This project is built with modern, high-performance tooling:
 
-Clone this before the session starts, open it in Cursor, and follow along as we build a design system from scratch. You do not need to know Astro beforehand. The repo is pre-scaffolded so we can spend the session on taste, systems, and iteration, not boilerplate.
+* **[Astro 6](https://astro.build/):** The core web framework used for fast, static site generation.
+* **Node.js (v22+):** The required runtime environment for Astro 6.
+* **[Cursor](https://cursor.com/):** The recommended AI-powered IDE. (The free tier is sufficient for this project).
+* **[Impeccable](https://impeccable.style/):** An AI design agent used to generate and document design tokens. **Note:** Impeccable is pre-vendored in this repository (`.claude` and `.cursor` directories)—no manual installation is needed.
+* **[Cloudflare](https://www.cloudflare.com/):** The target platform for deploying the final static site.
 
-## Requirements
+## 📋 Prerequisites
 
-Set these up before we go live:
+Before you begin, ensure your local environment meets the following requirements:
 
-| Requirement | Notes |
-| --- | --- |
-| [Cursor](https://cursor.com/) | Free tier is probably enough for the session |
-| [Impeccable](https://impeccable.style/) | Already vendored in the repo — nothing to install |
-| [Cloudflare](https://www.cloudflare.com/) | Free tier is enough (used later in the session) |
-| Node.js 22+ | Required by Astro 6 |
+* **Node.js:** Version 22.0.0 or higher.
+* **Editor:** Cursor IDE.
+* **Accounts:** A free Cloudflare account (for deployment later).
 
-## Get set up in Cursor
+## 🛠️ Installation & Setup
 
-When the session starts, clone this repo and open the folder in Cursor.
+1.  **Clone the repository:**
+    ```bash
+    git clone [https://github.com/Maryam271/vibe-design-system.git](https://github.com/Maryam271/vibe-design-system.git)
+    cd vibe-design-system
+    ```
 
-```sh
-git clone https://github.com/lucas-datacamp/vibe-design-system.git
-cd vibe-design-system
-```
+2.  **Install dependencies:**
+    ```bash
+    npm install
+    ```
 
-Then ask Cursor to install dependencies and start the dev server. You can paste something like:
+3.  **Start the local development server:**
+    ```bash
+    npm run dev
+    ```
 
-```text
-I just cloned this repo to follow the Summer Vibes live coding session. Please install dependencies and run the dev server. Node.js 22+ is required.
-```
+4.  **View the application:**
+    Open your browser and navigate to `http://localhost:4321`. You will see the live design-system showcase. As you update your design tokens, this page will reskin automatically.
 
-Cursor should run:
+## Generating Your Design System (Impeccable)
 
-```sh
-npm install
-npm run dev
-```
+Since Impeccable is already vendored in the repository, you can skip the installation step and dive straight into building your design language.
 
-Open [http://localhost:4321](http://localhost:4321). You'll see the **design-system showcase** — palette, type, and components, all in deliberately plain grayscale defaults. That's the point: as you define your tokens during the session, this page reskins live.
-
-### If Cursor asks what to do
-
-| Command | Action |
-| --- | --- |
-| `npm install` | Install dependencies |
-| `npm run dev` | Start dev server at `localhost:4321` |
-| `npm run build` | Production build to `./dist/` |
-| `npm run preview` | Preview the production build |
-
-### Impeccable
-
-Impeccable is **already vendored in this repo** (in `.claude` and `.cursor`) — nothing to install. Each attendee builds their own design system, so `PRODUCT.md` and `DESIGN.md` stay local and are gitignored.
-
-In Cursor, after the mood board and AI interview:
-
-```text
-/impeccable init
-```
-
-That creates your personal `PRODUCT.md`. Later, `/impeccable document` creates your `DESIGN.md`. Commands like `/impeccable live` and `/impeccable craft` read from those files.
-
-## About the session
-
-**Format:** Live presentation + live Cursor demo
-
-**Tone:** Playful summer vibes, but serious about craft
-
-### What we cover
-
-1. **What is vibe coding?** The idea (popularized by Andrej Karpathy), and the toolbox: Cursor, v0, Lovable, Claude / Claude Code.
-2. **Meet the slop.** A deliberately low-effort prompt to show that generic AI output is real — and why so much of the web looks the same now that code is cheap.
-3. **Code got cheap. Taste didn't.** How to make an app feel intentional, not like a high school project pasted out of ChatGPT.
-4. **What *is* a design system?** The brands you recognize in one second — Apple, Spotify, Lego, Polestar — and the recipe behind them: tokens, components, and rules. The twist for us: a **vibe coding design system** is built for humans *and* agents. (And no, it's not **System Design** — same words, opposite jobs: visual language vs. engineering architecture.)
-5. **Find your taste.** Build a mood board of references you actually like.
-6. **AI-assisted interview.** Use an agent to pull out the details of *your* system: palette, type, density, voice, anti-patterns.
-7. **Define it live.** Set your tokens with Cursor + [Impeccable](https://impeccable.style/) and watch the showcase reskin in front of you.
-8. **Publish it to the open web.** Deploy to Cloudflare Pages so the URL becomes an *agent-readable* design system — tokens, rules, and an installable skill. The URL is the product.
-9. **Consume it anywhere.** Point an AI agent at your system and watch it build or refactor a product on-brand — in any stack. That's the whole point.
-
-### Related decks
-
-The talk narrative was shaped in a design session and delivered as HTML slide decks:
-
-- **Summer Vibes Deck** — main session flow (vibe coding → slop → taste → design systems → mood board → interview → build)
-- **Design System Anatomy Deck** — companion deck on foundations, components, and connective tissue
-
-Those decks are separate artifacts from this repo. This repository is where we build the design system together during the live demo.
-
-## What's in this repo
-
-Pre-configured scaffold for the session:
-
-| Piece | Version |
-| --- | --- |
-| [Astro](https://astro.build/) | 6.x |
-| [Tailwind CSS](https://tailwindcss.com/) | 4.x |
-| [daisyUI](https://daisyui.com/) | 5.x |
-
-Tailwind is wired through the Vite plugin, and the design tokens live in `src/styles/global.css` (`@theme` + `:root`). daisyUI is registered there but left inert (`themes: false`) — the system is built on custom tokens, not daisyUI components.
-
-Dev toolbar is disabled in `astro.config.mjs` so the live demo stays clean.
-
-### The rails (pre-built so the session is about taste, not boilerplate)
-
-- **Neutral token foundation** — `src/styles/global.css` (`@theme`): the live-edit surface that drives everything.
-- **Token-driven showcase** — `src/pages/index.astro` + `src/components/ds/*`: palette, type, and component galleries that reskin from the tokens.
-- **`publish-system`** — `scripts/publish-system.mjs`, run automatically on every dev/build via an Astro integration. Generates the **agent layer**: `/tokens.json`, `/system.md`, `/tokens.css`, `/llms.txt`, and versioned `/v1/…` (including an installable hosted skill). These are generated, not committed.
-- **Skills** — `apply-system` (apply the system to any product) and `publish-system`, shipped in `.claude/skills` + `.cursor/skills` so they're present on clone.
-- **Static deploy** — `wrangler.jsonc` configures a static Cloudflare deploy of `./dist`, no SSR adapter needed.
-
-## Closing thought
-
-The dream is a web with diverse, high-quality design that does not depend on a handful of experts alone. Tools like Cursor and Impeccable lower the floor; taste, systems thinking, and deliberate iteration raise the ceiling.
-
-Now go build yours.
+Inside the **Cursor** AI chat, after completing your mood board and AI interview, simply run:
