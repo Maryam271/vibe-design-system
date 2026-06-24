@@ -46,3 +46,10 @@ Before you begin, ensure your local environment meets the following requirements
 Since Impeccable is already vendored in the repository, you can skip the installation step and dive straight into building your design language.
 
 Inside the **Cursor** AI chat, after completing your mood board and AI interview, simply run:
+
+📦 Deployment
+This project is configured for seamless deployment to Cloudflare Pages.
+(Deployment instructions / Wrangler configurations can be executed here).
+
+📄 License
+This project is open-source and available under the MIT License.
