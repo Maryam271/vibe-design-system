@@ -1,6 +1,6 @@
 ---
 interface Props {
-  tone?: "neutral" | "ocean" | "gold" | "green" | "coral";
+  tone?: "neutral" | "ocean" | "aurora" | "moment" | "deep" | "gold" | "green" | "coral";
   class?: string;
 }
 
@@ -23,46 +23,50 @@ const classes = [
     align-items: center;
     font-family: var(--font-body);
     font-size: var(--text-caption);
-    font-weight: 500;
+    font-weight: 600;
     line-height: 1;
-    padding: 0.2em 0.6em;
-    border-radius: var(--radius-sm);
-    border: 1px solid var(--color-line);
+    padding: 0.35em 0.75em;
+    border-radius: var(--radius-pill);
+    border: 1px solid transparent;
     white-space: nowrap;
+    letter-spacing: 0.01em;
   }
 
-  /* neutral — surface + ink */
   .ds-badge--neutral {
     background-color: var(--color-surface);
     color: var(--color-ink);
     border-color: var(--color-line);
   }
 
-  /* ocean — primary + bg */
   .ds-badge--ocean {
-    background-color: var(--color-primary);
-    color: var(--color-bg);
-    border-color: var(--color-primary);
+    background-color: color-mix(in oklch, var(--color-primary) 14%, var(--color-bg));
+    color: var(--color-primary-hover);
+    border-color: color-mix(in oklch, var(--color-primary) 25%, var(--color-line));
   }
 
-  /* gold — accent bg + accent-ink text */
+  .ds-badge--aurora,
   .ds-badge--gold {
-    background-color: var(--color-accent);
-    color: var(--color-accent-ink);
-    border-color: var(--color-accent);
+    background-color: var(--color-accent-soft);
+    color: var(--color-accent);
+    border-color: color-mix(in oklch, var(--color-accent) 20%, var(--color-line));
   }
 
-  /* green */
+  .ds-badge--moment,
   .ds-badge--green {
-    background-color: var(--color-green);
-    color: var(--color-bg);
-    border-color: var(--color-green);
+    background-color: color-mix(in oklch, var(--color-moment) 16%, var(--color-bg));
+    color: var(--color-moment-hover);
+    border-color: color-mix(in oklch, var(--color-moment) 30%, var(--color-line));
   }
 
-  /* coral */
-  .ds-badge--coral {
-    background-color: var(--color-coral);
+  .ds-badge--deep {
+    background-color: var(--color-ocean-deep);
     color: var(--color-bg);
-    border-color: var(--color-coral);
+    border-color: var(--color-ocean-deep);
+  }
+
+  .ds-badge--coral {
+    background-color: color-mix(in oklch, var(--color-coral) 40%, var(--color-bg));
+    color: oklch(0.45 0.06 75);
+    border-color: color-mix(in oklch, var(--color-coral) 50%, var(--color-line));
   }
 </style>

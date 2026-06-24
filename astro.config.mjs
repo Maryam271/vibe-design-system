@@ -10,7 +10,7 @@ function publishSystem() {
 	return {
 		name: 'publish-system',
 		hooks: {
-			'astro:config:setup': () => execSync('node scripts/publish-system.mjs', { stdio: 'inherit' }),
+			'astro:config:setup': () => execSync('npx tsx scripts/publish-system.ts', { stdio: 'inherit' }),
 		},
 	};
 }

@@ -7,66 +7,96 @@ import Input from "../components/ds/Input.astro";
 import ColorSwatch from "../components/ds/ColorSwatch.astro";
 import Section from "../components/ds/Section.astro";
 
+const agentLinks = [
+  { href: "/tokens.json", path: "/tokens.json", desc: "Flat JSON of all design tokens" },
+  { href: "/tokens.css", path: "/tokens.css", desc: "Drop-in :root custom properties" },
+  { href: "/system.md", path: "/system.md", desc: "Markdown reference — props, tokens, rules" },
+  { href: "/llms.txt", path: "/llms.txt", desc: "LLM context summary" },
+  { href: "/design.json", path: "/design.json", desc: "Design tokens + component recipes (JSON)" },
+];
+
 const swatches = [
-  { name: "Background",     token: "--color-bg" },
-  { name: "Surface",        token: "--color-surface" },
-  { name: "Ink",            token: "--color-ink" },
-  { name: "Muted",          token: "--color-muted" },
-  { name: "Line",           token: "--color-line" },
-  { name: "Primary",        token: "--color-primary" },
-  { name: "Accent",         token: "--color-accent" },
-  { name: "Coral",          token: "--color-coral" },
-  { name: "Green",          token: "--color-green" },
+  { name: "Background",   token: "--color-bg" },
+  { name: "Surface",      token: "--color-surface" },
+  { name: "Ink",          token: "--color-ink" },
+  { name: "Muted",        token: "--color-muted" },
+  { name: "Line",         token: "--color-line" },
+  { name: "Primary",      token: "--color-primary" },
+  { name: "Aurora",       token: "--color-accent" },
+  { name: "Moment",       token: "--color-moment" },
+  { name: "Ocean Deep",   token: "--color-ocean-deep" },
 ];
 
 const typeRows = [
-  { label: "Display",    cls: "text-display",    tag: "span", sample: "The quick brown fox" },
-  { label: "Heading",    cls: "text-heading",    tag: "span", sample: "The quick brown fox jumps" },
-  { label: "Subheading", cls: "text-subheading", tag: "span", sample: "The quick brown fox jumps over the lazy dog" },
-  { label: "Body",       cls: "text-body",       tag: "span", sample: "The quick brown fox jumps over the lazy dog. Sphinx of black quartz, judge my vow." },
-  { label: "Secondary",  cls: "text-secondary",  tag: "span", sample: "The quick brown fox jumps over the lazy dog. Sphinx of black quartz, judge my vow." },
-  { label: "Caption",    cls: "text-caption",    tag: "span", sample: "The quick brown fox jumps over the lazy dog. Sphinx of black quartz, judge my vow." },
+  { label: "Display",    cls: "text-display",    sample: "Coastal clarity" },
+  { label: "Heading",    cls: "text-heading",    sample: "Turquoise morning light" },
+  { label: "Subheading", cls: "text-subheading", sample: "Electric dusk, curated and alive" },
+  { label: "Body",       cls: "text-body",       sample: "Open, easy, optimistic — beach morning energy with Porsche precision and one bold green moment." },
+  { label: "Secondary",  cls: "text-secondary",  sample: "Soft linen surfaces, pill controls, geometric sans voice — confident and warm." },
+  { label: "Caption",    cls: "text-caption",    sample: "Aurora Day · design tokens · botanical future" },
+];
+
+const navLinks = [
+  { href: "#colors", label: "Colors" },
+  { href: "#type", label: "Type" },
+  { href: "#components", label: "Components" },
+  { href: "#principles", label: "Principles" },
+  { href: "#agents", label: "Agents" },
 ];
 ---
 
-<BaseLayout title="Design System" description="A neutral, token-driven design system showcase.">
+<BaseLayout title="Aurora Day" description="Coastal clarity with cultural rhythm — the Aurora Day design system.">
 
-  <!-- Sticky header -->
   <header class="site-header">
     <div class="site-header__inner">
-      <span class="site-header__wordmark">Design System</span>
+      <a href="#" class="site-header__brand">
+        <span class="site-header__mark" aria-hidden="true"></span>
+        <span class="site-header__wordmark">
+          Aurora <span class="text-gradient-aurora">Day</span>
+        </span>
+      </a>
       <nav class="site-header__nav" aria-label="Page sections">
-        <a href="#colors">Colors</a>
-        <a href="#type">Type</a>
-        <a href="#components">Components</a>
+        {navLinks.map((link) => (
+          <a href={link.href} class="site-header__link">{link.label}</a>
+        ))}
       </nav>
     </div>
   </header>
 
   <main class="page-main">
 
-    <!-- Hero -->
-    <div class="hero">
+    <section class="hero">
+      <div class="hero__glow" aria-hidden="true"></div>
       <div class="hero__inner">
-        <p class="hero__caption text-caption text-muted">Neutral Canvas</p>
+        <div class="hero__badges">
+          <Badge tone="ocean">Coastal villa</Badge>
+          <Badge tone="aurora">Northern lights</Badge>
+          <Badge tone="moment">One green moment</Badge>
+        </div>
+        <p class="hero__caption text-caption">Design system · v1</p>
         <h1 class="text-display hero__headline">
-          Tokens first.<br />Reskin everything.
+          Morning clarity.<br />
+          <span class="text-gradient-aurora">Electric rhythm.</span>
         </h1>
-        <p class="hero__lede text-secondary text-muted">
-          A blank-slate design system. Change the tokens in <code>global.css</code>
-          and every component reskins instantly — no component code touched.
+        <p class="hero__lede text-secondary">
+          Aurora Day is warm linen calm, turquoise-teal precision, and aurora violet
+          at dusk — with a single Spotify-green hit when something truly matters.
         </p>
         <div class="hero__actions">
-          <Button variant="primary" size="lg" href="#components">Browse components</Button>
-          <Button variant="ghost" size="lg" href="#colors">See tokens</Button>
+          <Button variant="moment" size="lg" href="#components">Explore components</Button>
+          <Button variant="secondary" size="lg" href="#colors">View tokens</Button>
+          <Button variant="ghost" size="lg" href="#principles">Design principles</Button>
         </div>
       </div>
+    </section>
+
+    <div class="aurora-band" aria-hidden="true">
+      <div class="aurora-band__shimmer"></div>
     </div>
 
     <div class="content-wrap">
 
-      <!-- Colors -->
-      <Section id="colors" heading="Color tokens" lede="Nine semantic color tokens cover every UI surface. Swap them and the entire system follows.">
+      <Section id="colors" heading="Color tokens" lede="White and linen base, turquoise clarity, aurora accent, one green moment. ~90% calm, ~8% rhythm, ~2% punch.">
         <div class="swatch-grid">
           {swatches.map((s) => (
             <ColorSwatch name={s.name} token={s.token} />
@@ -74,47 +104,43 @@ const typeRows = [
         </div>
       </Section>
 
-      <!-- Type -->
-      <Section id="type" heading="Type scale" lede="Six steps built on clamp() and rem. Display through Caption, all token-driven.">
+      <Section id="type" heading="Type scale" lede="DM Sans — clean geometric sans. Modern, confident, tight. Display through caption, all token-driven.">
         <div class="type-panel">
           {typeRows.map((row) => (
             <div class="type-row">
-              <span class="type-row__label text-caption text-muted">{row.label}</span>
+              <span class="type-row__label text-caption">{row.label}</span>
               <span class={`type-row__sample font-display ${row.cls}`}>{row.sample}</span>
             </div>
           ))}
         </div>
       </Section>
 
-      <!-- Components -->
-      <Section id="components" heading="Components" lede="Four lanes: actions, status badges, form inputs, and content surfaces.">
+      <Section id="components" heading="Components" lede="Pill controls, linen surfaces, balanced density — Airbnb warmth meets Polestar precision.">
         <div class="component-lanes">
 
-          <!-- Actions -->
           <div class="lane">
             <p class="lane__heading">Actions</p>
             <div class="lane__items">
               <Button variant="primary">Primary</Button>
+              <Button variant="moment">Moment</Button>
               <Button variant="secondary">Secondary</Button>
               <Button variant="ghost">Ghost</Button>
               <Button variant="primary" disabled>Disabled</Button>
             </div>
           </div>
 
-          <!-- Status -->
           <div class="lane">
             <p class="lane__heading">Status</p>
             <div class="lane__items lane__items--wrap">
               <Badge tone="neutral">Neutral</Badge>
               <Badge tone="ocean">Ocean</Badge>
-              <Badge tone="gold">Gold</Badge>
-              <Badge tone="green">Green</Badge>
-              <Badge tone="coral">Coral</Badge>
+              <Badge tone="aurora">Aurora</Badge>
+              <Badge tone="moment">Moment</Badge>
+              <Badge tone="deep">Deep</Badge>
             </div>
           </div>
 
-          <!-- Forms -->
-          <div class="lane">
+          <div class="lane lane--wide">
             <p class="lane__heading">Forms</p>
             <div class="lane__items lane__items--col">
               <Input
@@ -122,7 +148,7 @@ const typeRows = [
                 label="Full name"
                 type="text"
                 placeholder="Jane Smith"
-                helper="Used on your public profile."
+                helper="Soft corners, teal focus — friendly and precise."
               />
               <Input
                 id="demo-email"
@@ -134,16 +160,15 @@ const typeRows = [
             </div>
           </div>
 
-          <!-- Surfaces -->
-          <div class="lane">
+          <div class="lane lane--wide">
             <p class="lane__heading">Surfaces</p>
             <div class="lane__items lane__items--col">
-              <Card title="Default card">
-                This is the default card. It uses <code>--radius-lg</code> and
-                <code>--color-line</code> for its border.
+              <Card title="Curated card" elevated>
+                Linen shadow, warm white surface, soft radius — a botanical garden
+                feeling, not cold minimalism.
               </Card>
               <Card title="Compact card" compact>
-                Same component, <code>compact</code> prop reduces padding.
+                Same warmth, tighter padding for dense layouts.
               </Card>
             </div>
           </div>
@@ -151,113 +176,222 @@ const typeRows = [
         </div>
       </Section>
 
-      <!-- For agents -->
-      <Section heading="For agents" lede="AI tools and automated agents can consume this design system via structured endpoints.">
-        <p class="agent-intro text-secondary">
-          The following machine-readable files describe the complete token set, component API,
-          and usage conventions. Point your agent at these before generating UI.
-        </p>
-        <ul class="agent-links">
-          <li>
-            <a href="/tokens.json"><code>/tokens.json</code></a>
-            — All design tokens as a flat JSON object, keyed by CSS variable name.
-          </li>
-          <li>
-            <a href="/system.md"><code>/system.md</code></a>
-            — Markdown reference: token table, component props, usage rules.
-          </li>
-          <li>
-            <a href="/llms.txt"><code>/llms.txt</code></a>
-            — Plain-text summary in the <a href="https://llmstxt.org">llms.txt</a> convention
-            for LLM context windows.
-          </li>
-        </ul>
+      <Section id="principles" heading="Design principles" lede="Grounded in ocean and garden — never space age, never corporate slop, never sterile Apple clone.">
+        <div class="principles-grid">
+          <article class="principle-card">
+            <span class="principle-card__num">01</span>
+            <h3 class="principle-card__title">Morning first</h3>
+            <p class="principle-card__body">Default UI feels like open beach light — airy, optimistic, breathable.</p>
+          </article>
+          <article class="principle-card">
+            <span class="principle-card__num">02</span>
+            <h3 class="principle-card__title">Precision always</h3>
+            <p class="principle-card__body">Every element earns its place. Porsche 911 rule: timeless, no excess.</p>
+          </article>
+          <article class="principle-card">
+            <span class="principle-card__num">03</span>
+            <h3 class="principle-card__title">One green moment</h3>
+            <p class="principle-card__body">Spotify-green is reserved — restraint makes the accent land.</p>
+          </article>
+          <article class="principle-card">
+            <span class="principle-card__num">04</span>
+            <h3 class="principle-card__title">Rhythm, not noise</h3>
+            <p class="principle-card__body">Motion and color follow a beat — calm fade by default, snappy groove on action.</p>
+          </article>
+        </div>
+      </Section>
+
+      <Section id="agents" heading="For agents" lede="Machine-readable token files and system docs for AI tools building on Aurora Day.">
+        <div class="agent-panel">
+          <p class="agent-intro text-secondary">
+            Point your agent at these endpoints before generating UI. Tokens, components,
+            and usage rules — all derived from <code>global.css</code>.
+          </p>
+          <ul class="agent-links">
+            {agentLinks.map((link) => (
+              <li>
+                <a href={link.href} class="agent-link">
+                  <span class="agent-link__path">{link.path}</span>
+                  <span class="agent-link__desc">{link.desc}</span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
       </Section>
 
     </div>
   </main>
 
-  <!-- Footer -->
   <footer class="site-footer">
-    <p class="text-caption text-muted">Design System — neutral canvas, token-driven. Change tokens, reskin everything.</p>
+    <div class="site-footer__glow" aria-hidden="true"></div>
+    <div class="site-footer__inner">
+      <div class="site-footer__brand">
+        <span class="site-header__mark site-header__mark--footer" aria-hidden="true"></span>
+        <span class="site-footer__wordmark">Aurora Day</span>
+      </div>
+      <p class="site-footer__tagline text-secondary">
+        Coastal clarity with cultural rhythm — warm, precise, optimistic.
+      </p>
+      <p class="site-footer__copy text-caption">Change tokens in global.css · reskin everything</p>
+    </div>
   </footer>
 
 </BaseLayout>
 
 <style>
-  /* ── Header ── */
   .site-header {
     position: sticky;
     top: 0;
     z-index: var(--z-sticky);
-    background-color: var(--color-bg);
-    border-bottom: 1px solid var(--color-line);
+    border-bottom: 1px solid color-mix(in oklch, var(--color-line) 60%, transparent);
+    background: color-mix(in oklch, var(--color-bg) 75%, transparent);
+    backdrop-filter: blur(16px) saturate(1.4);
+    -webkit-backdrop-filter: blur(16px) saturate(1.4);
   }
 
   .site-header__inner {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    gap: var(--space-md);
     max-width: 72rem;
     margin: 0 auto;
     padding: var(--space-md) var(--space-lg);
   }
 
+  .site-header__brand {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-sm);
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .site-header__mark {
+    width: 1.75rem;
+    height: 1.75rem;
+    border-radius: 50%;
+    background: radial-gradient(
+      circle at 35% 30%,
+      var(--color-primary),
+      var(--color-accent) 55%,
+      var(--color-ocean-deep)
+    );
+    box-shadow: 0 2px 12px oklch(0.55 0.25 292 / 0.25);
+    flex-shrink: 0;
+  }
+
+  .site-header__mark--footer {
+    width: 2rem;
+    height: 2rem;
+  }
+
   .site-header__wordmark {
     font-family: var(--font-display);
     font-size: var(--text-subheading);
-    font-weight: 500;
+    font-weight: 700;
     color: var(--color-ink);
-    letter-spacing: -0.01em;
+    letter-spacing: -0.03em;
   }
 
   .site-header__nav {
     display: flex;
-    gap: var(--space-lg);
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    gap: var(--space-xs);
   }
 
-  .site-header__nav a {
-    font-size: var(--text-secondary);
+  .site-header__link {
+    font-size: var(--text-caption);
+    font-weight: 600;
     color: var(--color-muted);
     text-decoration: none;
-    transition: color var(--duration-fast) var(--ease-out-quart);
+    padding: 0.4rem 0.85rem;
+    border-radius: var(--radius-pill);
+    border: 1px solid transparent;
+    transition:
+      color var(--duration-normal) var(--ease-out-quart),
+      background-color var(--duration-normal) var(--ease-out-quart),
+      border-color var(--duration-normal) var(--ease-out-quart),
+      transform var(--duration-fast) var(--ease-groove);
   }
 
-  .site-header__nav a:hover {
-    color: var(--color-ink);
+  .site-header__link:hover {
+    color: var(--color-primary);
+    background-color: color-mix(in oklch, var(--color-primary) 10%, var(--color-bg));
+    border-color: color-mix(in oklch, var(--color-primary) 15%, transparent);
   }
 
-  /* ── Layout shells ── */
+  .site-header__link:active {
+    transform: scale(0.97);
+  }
+
   .page-main {
     min-height: calc(100dvh - 4rem);
   }
 
   .hero {
-    border-bottom: 1px solid var(--color-line);
+    position: relative;
+    overflow: hidden;
     padding: var(--space-3xl) var(--space-lg);
+    border-bottom: 1px solid color-mix(in oklch, var(--color-line) 50%, transparent);
+  }
+
+  .hero__glow {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 70% 80% at 20% 0%, oklch(0.58 0.11 180 / 0.14), transparent 55%),
+      radial-gradient(ellipse 50% 60% at 85% 20%, oklch(0.55 0.25 292 / 0.12), transparent 50%),
+      linear-gradient(180deg, transparent 60%, color-mix(in oklch, var(--color-surface) 50%, transparent));
+    pointer-events: none;
   }
 
   .hero__inner {
+    position: relative;
     max-width: 72rem;
     margin: 0 auto;
     display: flex;
     flex-direction: column;
     gap: var(--space-lg);
+    animation: hero-in var(--duration-groove) var(--ease-out-quart) both;
+  }
+
+  @keyframes hero-in {
+    from {
+      opacity: 0;
+      transform: translateY(16px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .hero__badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-sm);
   }
 
   .hero__caption {
     margin: 0;
     max-width: none;
-    letter-spacing: 0.06em;
+    letter-spacing: 0.1em;
     text-transform: uppercase;
+    color: var(--color-primary);
+    font-weight: 600;
   }
 
   .hero__headline {
-    max-width: 18ch;
+    max-width: 14ch;
   }
 
   .hero__lede {
-    max-width: 52ch;
+    max-width: 48ch;
+    color: var(--color-muted);
+    line-height: 1.6;
   }
 
   .hero__actions {
@@ -265,6 +399,35 @@ const typeRows = [
     flex-wrap: wrap;
     gap: var(--space-sm);
     align-items: center;
+    padding-top: var(--space-sm);
+  }
+
+  .aurora-band {
+    height: 4px;
+    position: relative;
+    overflow: hidden;
+    background: var(--color-ocean-deep);
+  }
+
+  .aurora-band__shimmer {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      90deg,
+      var(--color-ocean-deep) 0%,
+      var(--color-primary) 25%,
+      var(--color-accent) 50%,
+      var(--color-moment) 75%,
+      var(--color-ocean-deep) 100%
+    );
+    background-size: 200% 100%;
+    animation: aurora-shimmer 8s linear infinite;
+    opacity: 0.85;
+  }
+
+  @keyframes aurora-shimmer {
+    from { background-position: 0% 50%; }
+    to { background-position: 200% 50%; }
   }
 
   .content-wrap {
@@ -273,22 +436,21 @@ const typeRows = [
     padding: 0 var(--space-lg);
   }
 
-  /* ── Color swatches ── */
   .swatch-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(9.5rem, 1fr));
     gap: var(--space-md);
   }
 
-  /* ── Type specimen ── */
   .type-panel {
-    background-color: var(--color-surface);
-    border: 1px solid var(--color-line);
+    background: color-mix(in oklch, var(--color-bg) 70%, var(--color-surface));
+    border: 1px solid color-mix(in oklch, var(--color-line) 80%, var(--color-primary) 8%);
     border-radius: var(--radius-lg);
     padding: var(--space-lg);
     display: flex;
     flex-direction: column;
     gap: var(--space-lg);
+    box-shadow: var(--shadow-linen);
   }
 
   .type-row {
@@ -296,21 +458,28 @@ const typeRows = [
     grid-template-columns: 7rem 1fr;
     align-items: baseline;
     gap: var(--space-md);
+    padding-bottom: var(--space-md);
+    border-bottom: 1px solid color-mix(in oklch, var(--color-line) 50%, transparent);
+  }
+
+  .type-row:last-child {
+    padding-bottom: 0;
+    border-bottom: none;
   }
 
   .type-row__label {
-    font-weight: 600;
-    letter-spacing: 0.04em;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--color-primary);
   }
 
   .type-row__sample {
     color: var(--color-ink);
-    white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
   }
 
-  /* ── Component lanes ── */
   .component-lanes {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
@@ -318,13 +487,34 @@ const typeRows = [
     align-items: start;
   }
 
+  .lane--wide {
+    grid-column: 1 / -1;
+  }
+
+  @media (min-width: 48rem) {
+    .lane--wide {
+      grid-column: span 2;
+    }
+    .component-lanes {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  .lane {
+    background: color-mix(in oklch, var(--color-bg) 80%, var(--color-surface));
+    border: 1px solid color-mix(in oklch, var(--color-line) 70%, transparent);
+    border-radius: var(--radius-lg);
+    padding: var(--space-lg);
+    box-shadow: var(--shadow-linen);
+  }
+
   .lane__heading {
     font-family: var(--font-body);
     font-size: var(--text-caption);
-    font-weight: 600;
-    letter-spacing: 0.06em;
+    font-weight: 700;
+    letter-spacing: 0.08em;
     text-transform: uppercase;
-    color: var(--color-muted);
+    color: var(--color-accent);
     margin: 0 0 var(--space-md) 0;
     max-width: none;
   }
@@ -340,55 +530,202 @@ const typeRows = [
     flex-direction: column;
   }
 
-  .lane__items--wrap {
-    flex-wrap: wrap;
+  .principles-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+    gap: var(--space-md);
   }
 
-  /* ── Agent section ── */
+  .principle-card {
+    background: color-mix(in oklch, var(--color-bg) 75%, var(--color-surface));
+    border: 1px solid color-mix(in oklch, var(--color-line) 70%, var(--color-primary) 10%);
+    border-radius: var(--radius-lg);
+    padding: var(--space-lg);
+    box-shadow: var(--shadow-linen);
+    transition:
+      transform var(--duration-fast) var(--ease-groove),
+      box-shadow var(--duration-normal) var(--ease-out-quart);
+  }
+
+  .principle-card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-lift);
+  }
+
+  .principle-card__num {
+    display: block;
+    font-size: var(--text-caption);
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    color: var(--color-primary);
+    margin-bottom: var(--space-sm);
+  }
+
+  .principle-card__title {
+    font-family: var(--font-display);
+    font-size: var(--text-subheading);
+    font-weight: 600;
+    color: var(--color-ink);
+    margin: 0 0 var(--space-sm) 0;
+    letter-spacing: -0.02em;
+  }
+
+  .principle-card__body {
+    font-size: var(--text-secondary);
+    color: var(--color-muted);
+    line-height: 1.55;
+    max-width: none;
+    margin: 0;
+  }
+
+  .agent-panel {
+    background: linear-gradient(
+      135deg,
+      color-mix(in oklch, var(--color-ocean-deep) 92%, var(--color-bg)) 0%,
+      color-mix(in oklch, var(--color-ocean-deep) 85%, var(--color-accent) 8%) 100%
+    );
+    border-radius: var(--radius-lg);
+    padding: var(--space-xl);
+    border: 1px solid color-mix(in oklch, var(--color-primary) 25%, transparent);
+    box-shadow: var(--shadow-lift);
+  }
+
   .agent-intro {
-    margin-bottom: var(--space-md);
+    margin-bottom: var(--space-lg);
     max-width: 60ch;
+    color: color-mix(in oklch, var(--color-bg) 70%, var(--color-surface));
   }
 
   .agent-links {
     display: flex;
     flex-direction: column;
     gap: var(--space-sm);
-    padding-left: var(--space-lg);
+    padding: 0;
+    margin: 0;
+    list-style: none;
+  }
+
+  .agent-link {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+    padding: var(--space-md) var(--space-lg);
+    border-radius: var(--radius-md);
+    background: color-mix(in oklch, var(--color-bg) 8%, transparent);
+    border: 1px solid color-mix(in oklch, var(--color-bg) 15%, transparent);
+    text-decoration: none;
+    transition:
+      background-color var(--duration-normal) var(--ease-out-quart),
+      border-color var(--duration-normal) var(--ease-out-quart),
+      transform var(--duration-fast) var(--ease-groove);
+  }
+
+  .agent-link:hover {
+    background: color-mix(in oklch, var(--color-bg) 14%, transparent);
+    border-color: color-mix(in oklch, var(--color-primary) 40%, transparent);
+    transform: translateX(4px);
+  }
+
+  .agent-link__path {
+    font-family: ui-monospace, "Cascadia Code", "Source Code Pro", monospace;
+    font-size: var(--text-secondary);
+    font-weight: 600;
+    color: var(--color-bg);
+  }
+
+  .agent-link__desc {
+    font-size: var(--text-caption);
+    color: color-mix(in oklch, var(--color-bg) 55%, var(--color-primary));
+  }
+
+  .agent-panel code {
+    font-family: ui-monospace, "Cascadia Code", "Source Code Pro", monospace;
+    font-size: 0.875em;
+    color: var(--color-accent-soft);
+    background: color-mix(in oklch, var(--color-bg) 10%, transparent);
+    border: 1px solid color-mix(in oklch, var(--color-bg) 15%, transparent);
+    border-radius: var(--radius-sm);
+    padding: 0.1em 0.35em;
+  }
+
+  .site-footer {
+    position: relative;
+    overflow: hidden;
+    margin-top: var(--space-2xl);
+    background: var(--color-ocean-deep);
+    color: var(--color-bg);
+  }
+
+  .site-footer__glow {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 80% 100% at 50% 0%, oklch(0.55 0.25 292 / 0.35), transparent 60%),
+      radial-gradient(ellipse 60% 80% at 80% 100%, oklch(0.58 0.11 180 / 0.25), transparent 50%);
+    pointer-events: none;
+  }
+
+  .site-footer__inner {
+    position: relative;
+    max-width: 72rem;
+    margin: 0 auto;
+    padding: var(--space-2xl) var(--space-lg);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: var(--space-md);
+  }
+
+  .site-footer__brand {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-sm);
+  }
+
+  .site-footer__wordmark {
+    font-family: var(--font-display);
+    font-size: var(--text-heading);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+  }
+
+  .site-footer__tagline {
+    max-width: 40ch;
+    color: color-mix(in oklch, var(--color-bg) 75%, var(--color-primary));
     margin: 0;
   }
 
-  .agent-links li {
-    font-size: var(--text-secondary);
-    color: var(--color-muted);
-  }
-
-  .agent-links code {
-    font-family: ui-monospace, "Cascadia Code", "Source Code Pro", monospace;
-    font-size: var(--text-caption);
-    color: var(--color-ink);
-  }
-
-  /* ── Footer ── */
-  .site-footer {
-    border-top: 1px solid var(--color-line);
-    padding: var(--space-lg);
-    text-align: center;
-  }
-
-  .site-footer p {
-    margin: 0 auto;
+  .site-footer__copy {
     max-width: none;
+    color: color-mix(in oklch, var(--color-bg) 45%, var(--color-accent));
+    margin: 0;
   }
 
-  /* ── code inline ── */
   code {
     font-family: ui-monospace, "Cascadia Code", "Source Code Pro", monospace;
     font-size: 0.875em;
-    color: var(--color-ink);
-    background-color: var(--color-surface);
-    border: 1px solid var(--color-line);
+    color: var(--color-accent);
+    background-color: var(--color-accent-soft);
+    border: 1px solid color-mix(in oklch, var(--color-accent) 15%, var(--color-line));
     border-radius: var(--radius-sm);
     padding: 0.1em 0.35em;
+  }
+
+  @media (max-width: 640px) {
+    .site-header__inner {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .site-header__nav {
+      width: 100%;
+      justify-content: flex-start;
+    }
+
+    .type-row {
+      grid-template-columns: 1fr;
+      gap: var(--space-xs);
+    }
   }
 </style>

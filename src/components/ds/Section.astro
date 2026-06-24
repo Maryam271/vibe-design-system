@@ -16,6 +16,7 @@ const classes = ["ds-section", tight ? "ds-section--tight" : "", className]
 
 <section class={classes} id={id}>
   <div class="ds-section__header">
+    <span class="ds-section__eyebrow" aria-hidden="true"></span>
     <h2 class="ds-section__heading">{heading}</h2>
     {lede && <p class="ds-section__lede">{lede}</p>}
   </div>
@@ -28,6 +29,11 @@ const classes = ["ds-section", tight ? "ds-section--tight" : "", className]
   .ds-section {
     padding-top: var(--space-2xl);
     padding-bottom: var(--space-2xl);
+    border-bottom: 1px solid color-mix(in oklch, var(--color-line) 70%, transparent);
+  }
+
+  .ds-section:last-of-type {
+    border-bottom: none;
   }
 
   .ds-section--tight {
@@ -42,13 +48,25 @@ const classes = ["ds-section", tight ? "ds-section--tight" : "", className]
     margin-bottom: var(--space-xl);
   }
 
+  .ds-section__eyebrow {
+    display: block;
+    width: 2.5rem;
+    height: 3px;
+    border-radius: var(--radius-pill);
+    background: linear-gradient(
+      90deg,
+      var(--color-primary),
+      var(--color-accent)
+    );
+  }
+
   .ds-section__heading {
-    font-size: var(--text-subheading);
-    font-family: var(--font-body);
+    font-size: var(--text-heading);
+    font-family: var(--font-display);
     font-weight: 600;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    color: var(--color-muted);
+    letter-spacing: -0.02em;
+    text-transform: none;
+    color: var(--color-ink);
     margin: 0;
   }
 
@@ -57,9 +75,21 @@ const classes = ["ds-section", tight ? "ds-section--tight" : "", className]
     color: var(--color-muted);
     max-width: 55ch;
     margin: 0;
+    line-height: 1.55;
   }
 
   .ds-section__content {
-    /* content fills its natural width */
+    animation: section-in var(--duration-groove) var(--ease-out-quart) both;
+  }
+
+  @keyframes section-in {
+    from {
+      opacity: 0;
+      transform: translateY(8px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
 </style>

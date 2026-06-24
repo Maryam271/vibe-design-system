@@ -55,7 +55,7 @@ const wrapperClasses = ["ds-input-wrap", className].filter(Boolean).join(" ");
   .ds-input__label {
     font-size: var(--text-secondary);
     color: var(--color-ink);
-    font-weight: 500;
+    font-weight: 600;
   }
 
   .ds-input__field {
@@ -64,12 +64,13 @@ const wrapperClasses = ["ds-input-wrap", className].filter(Boolean).join(" ");
     color: var(--color-ink);
     background-color: var(--color-bg);
     border: 1px solid var(--color-line);
-    border-radius: var(--radius-md);
-    padding: var(--space-sm) var(--space-md);
+    border-radius: var(--radius-pill);
+    padding: 0.65rem 1.1rem;
     width: 100%;
     transition:
-      border-color var(--duration-fast) var(--ease-out-quart),
-      box-shadow var(--duration-fast) var(--ease-out-quart);
+      border-color var(--duration-normal) var(--ease-out-quart),
+      box-shadow var(--duration-normal) var(--ease-out-quart),
+      background-color var(--duration-normal) var(--ease-out-quart);
   }
 
   .ds-input__field::placeholder {
@@ -77,13 +78,14 @@ const wrapperClasses = ["ds-input-wrap", className].filter(Boolean).join(" ");
   }
 
   .ds-input__field:hover {
-    border-color: var(--color-muted);
+    border-color: color-mix(in oklch, var(--color-primary) 30%, var(--color-line));
+    background-color: color-mix(in oklch, var(--color-surface) 40%, var(--color-bg));
   }
 
   .ds-input__field:focus {
     outline: none;
-    border-color: var(--color-focus);
-    box-shadow: 0 0 0 2px color-mix(in oklch, var(--color-focus) 25%, transparent);
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px color-mix(in oklch, var(--color-primary) 18%, transparent);
   }
 
   .ds-input__field[aria-invalid="true"] {
@@ -91,16 +93,18 @@ const wrapperClasses = ["ds-input-wrap", className].filter(Boolean).join(" ");
   }
 
   .ds-input__field[aria-invalid="true"]:focus {
-    box-shadow: 0 0 0 2px color-mix(in oklch, var(--color-error) 20%, transparent);
+    box-shadow: 0 0 0 3px color-mix(in oklch, var(--color-error) 18%, transparent);
   }
 
   .ds-input__helper {
     font-size: var(--text-caption);
     color: var(--color-muted);
+    padding-left: 0.25rem;
   }
 
   .ds-input__error {
     font-size: var(--text-caption);
     color: var(--color-error);
+    padding-left: 0.25rem;
   }
 </style>

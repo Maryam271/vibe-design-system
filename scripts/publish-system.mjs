@@ -18,7 +18,7 @@ import { join } from "node:path";
 
 const ROOT = process.cwd();
 const PUBLIC = join(ROOT, "public");
-const NAME = "Vibe Coding Design System";
+const NAME = "Aurora Day";
 const SITE_URL = (process.env.SITE_URL || process.env.CF_PAGES_URL || "https://vibe-design-system.lucas-silva-cea.workers.dev").replace(/\/$/, "");
 const VERSION = "v1";
 

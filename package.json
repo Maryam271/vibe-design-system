@@ -7,7 +7,7 @@
   },
   "scripts": {
     "dev": "astro dev",
-    "publish-system": "node scripts/publish-system.mjs",
+    "publish-system": "npx tsx scripts/publish-system.ts",
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro"

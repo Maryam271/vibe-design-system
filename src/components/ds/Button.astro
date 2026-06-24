@@ -1,6 +1,6 @@
 ---
 interface Props {
-  variant?: "primary" | "secondary" | "ghost";
+  variant?: "primary" | "secondary" | "ghost" | "moment";
   size?: "sm" | "md" | "lg";
   href?: string;
   disabled?: boolean;
@@ -48,17 +48,23 @@ const Tag = href ? "a" : "button";
     justify-content: center;
     gap: var(--space-xs);
     font-family: var(--font-body);
-    font-weight: 500;
+    font-weight: 600;
     line-height: 1;
     text-decoration: none;
     border: 1px solid transparent;
-    border-radius: var(--radius-md);
+    border-radius: var(--radius-pill);
     cursor: pointer;
     transition:
-      background-color var(--duration-fast) var(--ease-out-quart),
-      border-color var(--duration-fast) var(--ease-out-quart),
-      color var(--duration-fast) var(--ease-out-quart);
+      background-color var(--duration-normal) var(--ease-out-quart),
+      border-color var(--duration-normal) var(--ease-out-quart),
+      color var(--duration-normal) var(--ease-out-quart),
+      transform var(--duration-fast) var(--ease-groove),
+      box-shadow var(--duration-normal) var(--ease-out-quart);
     white-space: nowrap;
+  }
+
+  .ds-btn:active:not(:disabled) {
+    transform: scale(0.97);
   }
 
   .ds-btn:disabled,
@@ -68,51 +74,66 @@ const Tag = href ? "a" : "button";
     pointer-events: none;
   }
 
-  /* Sizes */
   .ds-btn--sm {
     font-size: var(--text-caption);
-    padding: var(--space-xs) var(--space-sm);
+    padding: 0.45rem 0.85rem;
   }
 
   .ds-btn--md {
     font-size: var(--text-secondary);
-    padding: var(--space-sm) var(--space-md);
+    padding: 0.55rem 1.15rem;
   }
 
   .ds-btn--lg {
     font-size: var(--text-body);
-    padding: var(--space-md) var(--space-lg);
+    padding: 0.75rem 1.5rem;
   }
 
-  /* Variants */
   .ds-btn--primary {
     background-color: var(--color-primary);
     border-color: var(--color-primary);
     color: var(--color-bg);
+    box-shadow: 0 2px 12px oklch(0.58 0.11 180 / 0.25);
   }
 
   .ds-btn--primary:hover:not(:disabled) {
     background-color: var(--color-primary-hover);
     border-color: var(--color-primary-hover);
+    box-shadow: 0 4px 20px oklch(0.58 0.11 180 / 0.35);
+  }
+
+  .ds-btn--moment {
+    background-color: var(--color-moment);
+    border-color: var(--color-moment);
+    color: var(--color-bg);
+    box-shadow: 0 2px 16px oklch(0.67 0.19 145 / 0.35);
+  }
+
+  .ds-btn--moment:hover:not(:disabled) {
+    background-color: var(--color-moment-hover);
+    border-color: var(--color-moment-hover);
+    box-shadow: 0 4px 24px oklch(0.67 0.19 145 / 0.45);
   }
 
   .ds-btn--secondary {
-    background-color: var(--color-surface);
-    border-color: var(--color-line);
-    color: var(--color-ink);
+    background-color: var(--color-bg);
+    border-color: color-mix(in oklch, var(--color-primary) 35%, var(--color-line));
+    color: var(--color-primary);
   }
 
   .ds-btn--secondary:hover:not(:disabled) {
-    background-color: var(--color-line);
+    background-color: color-mix(in oklch, var(--color-primary) 8%, var(--color-bg));
+    border-color: var(--color-primary);
   }
 
   .ds-btn--ghost {
     background-color: transparent;
     border-color: transparent;
-    color: var(--color-primary);
+    color: var(--color-ink);
   }
 
   .ds-btn--ghost:hover:not(:disabled) {
-    background-color: var(--color-surface);
+    background-color: color-mix(in oklch, var(--color-primary) 10%, var(--color-surface));
+    color: var(--color-primary);
   }
 </style>
